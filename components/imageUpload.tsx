@@ -13,7 +13,8 @@ import Image from 'next/image';
 
 const authenticator = async () => {
   try {
-    const response = await fetch(`${config.env.apiEndpoint}/api/auth/imagekit`);
+    // Use relative URL to work on both localhost and Vercel
+    const response = await fetch('/api/auth/imagekit');
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(
