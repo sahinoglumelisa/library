@@ -63,7 +63,8 @@ const signUp = async (params: AuthCredentials) => {
     });
 
     // Trigger welcome email workflow
-    fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/workflows/onboarding`, {
+    const baseUrl = process.env.NEXT_PUBLIC_PROD_API_ENDPOINT || process.env.NEXT_PUBLIC_API_ENDPOINT || 'http://localhost:3000';
+    fetch(`${baseUrl}/api/workflows/onboarding`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }),
