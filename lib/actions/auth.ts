@@ -62,6 +62,13 @@ const signUp = async (params: AuthCredentials) => {
       password: hashedPassword,
     });
 
+    // Trigger welcome email workflow
+    fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/workflows/onboarding`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    }).catch(err => console.error('Failed to trigger welcome email:', err));
+
     await signInWithCredentials({ email, password });
     return { success: true, message: 'Signup successful' };
   } catch (error) {
